@@ -30,6 +30,10 @@ public abstract class Camera {
 		return postiLetto;
 	}
 	
+	public Vector<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
+	}
+	
 	public boolean isDisponibile(LocalDateTime dal, LocalDateTime al) {
 		boolean r = true;
 		for(Prenotazione p : prenotazioni) {
