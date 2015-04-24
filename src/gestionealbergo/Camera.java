@@ -37,10 +37,11 @@ public abstract class Camera {
 	public boolean isDisponibile(LocalDateTime dal, LocalDateTime al) {
 		boolean r = true;
 		for(Prenotazione p : prenotazioni) {
-			if(		(!dal.isBefore(p.getDal()) && !dal.isAfter(p.getAl()))
-					|| (!al.isBefore(p.getDal()) && !al.isAfter(p.getAl()))
-					|| (!p.getDal().isBefore(dal) && !p.getDal().isAfter(al))
-					|| (!p.getAl().isBefore(dal) && !p.getAl().isAfter(al))) 
+//			if(		(!dal.isBefore(p.getDal()) && !dal.isAfter(p.getAl()))
+//					|| (!al.isBefore(p.getDal()) && !al.isAfter(p.getAl()))
+//					|| (!p.getDal().isBefore(dal) && !p.getDal().isAfter(al))
+//					|| (!p.getAl().isBefore(dal) && !p.getAl().isAfter(al))) 
+			if ( !dal.isAfter(p.getAl()) && !al.isBefore(p.getDal()))
 			{
 				r = false;
 				// break;
