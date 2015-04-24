@@ -4,11 +4,13 @@ import java.util.*;
 import java.time.*;
 
 public abstract class Camera {
+	
 	private String numero;
 	private int postiLetto;
 	private Vector<Prenotazione> prenotazioni;
+	private double costoGiornaliero;
 	
-	Camera(String numero, int postiLetto) {
+	Camera(String numero, int postiLetto, double costoGiornaliero) {
 		if (numero != null)
 			this.numero = numero;
 		else
@@ -18,6 +20,11 @@ public abstract class Camera {
 			this.postiLetto = postiLetto;
 		else
 			throw new IllegalArgumentException("postiLetto must be positive");
+		
+		if (costoGiornaliero > 0)
+			this.costoGiornaliero = costoGiornaliero;
+		else
+			throw new IllegalArgumentException("costoGiornaliero must be positive");
 		
 		this.prenotazioni = new Vector<Prenotazione>();
 	}
@@ -61,6 +68,10 @@ public abstract class Camera {
 		}
 		else
 			throw new IllegalArgumentException("prenotazione cannot be null");
+	}
+	
+	public double getCostoGiornaliero() {
+		return this.costoGiornaliero;
 	}
 
 	@Override

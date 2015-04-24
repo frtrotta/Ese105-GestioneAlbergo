@@ -7,6 +7,7 @@ public class Prenotazione {
 	private LocalDateTime al;
 	private Camera camera;
 	private Cliente cliente;
+	private double costoGiornaliero;
 	
 	public Prenotazione(LocalDateTime dal, LocalDateTime al, Cliente cliente) {
 		if ((dal != null) && (al != null)) {
@@ -24,6 +25,16 @@ public class Prenotazione {
 			this.cliente = cliente;
 		else
 			throw new IllegalArgumentException("cliente cannot be null");
+		
+		costoGiornaliero = 0;
+	}
+	
+	public Prenotazione(LocalDateTime dal, LocalDateTime al, Cliente cliente, double costoGiornaliero) {
+		this(dal, al, cliente);
+		if (costoGiornaliero > 0)
+			this.costoGiornaliero = costoGiornaliero;
+		else
+			throw new IllegalArgumentException("costoGiornaliero cannot be null");
 	}
 
 	public Camera getCamera() {
@@ -31,8 +42,13 @@ public class Prenotazione {
 	}
 
 	public void setCamera(Camera camera) {
-		if (camera != null)
+		if (camera != null)  {
 			this.camera = camera;
+			if (this.costoGiornaliero == 0) {
+				// Se il costo giornaliero è a 0, non è stato impostato esplicitamente
+				this.costoGiornaliero = camera.getCostoGiornaliero();
+			}
+		}
 		else
 			throw new IllegalArgumentException("camera cannot be set to null");
 	}
@@ -51,6 +67,14 @@ public class Prenotazione {
 	
 	public int getNumeroNotti() {
 		return Period.between(dal.toLocalDate(), al.toLocalDate()).getDays();
+	}
+	
+	public double getCostoGiornaliero() {
+		return costoGiornaliero;
+	}
+	
+	public double getCostoTotale() {
+		return costoGiornaliero * getNumeroNotti();
 	}
 
 	@Override
